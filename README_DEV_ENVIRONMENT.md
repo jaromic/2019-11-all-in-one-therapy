@@ -32,13 +32,13 @@ Die VHost-Konfiguration unter `C:\xampp\apache\conf\extra\httpd-vhosts.conf` bea
 Listen 8009
 <VirtualHost dev.aiot:8009>
   ServerName dev.aiot
-  DocumentRoot "MY_AIOT_GIT_WORKING_COPY"
+  DocumentRoot "MY_AIOT_GIT_WORKING_COPY/public"
 
   SSLEngine on
   SSLCertificateFile "conf/ssl.crt/server.crt"
   SSLCertificateKeyFile "conf/ssl.key/server.key"
 
-  <Directory "MY_AIOT_GIT_WORKING_COPY">
+  <Directory "MY_AIOT_GIT_WORKING_COPY/public">
       AllowOverride All
       Require all granted
       Options Indexes FollowSymLinks
