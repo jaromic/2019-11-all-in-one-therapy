@@ -12,5 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('frontend');
+})->name('/');
+
+Route::get('/backend', function () {
+    return view('backend');
+})->name('backend');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('authenticate', 'Auth\LoginController@login')->name('authenticate');
