@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/backend') }}">Backend</a>
+                        <a href="{{ url('/backend') }}">Backend</a> | <a href="{{ route('logout') }}">Logout</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -84,16 +84,24 @@
                     All-in-one Therapy
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <main>
+                    <div class="about-us">
+                        <h1>Über uns</h1>
+                        <div></div>
+                    </div>
+                    <div class="services">
+                        <h1>Leistungen</h1>
+                        <div></div>
+                    </div>
+                    <div class="map">
+                        <h1>Anfahrt</h1>
+                        <div></div>
+                    </div>
+                    <div class="contact">
+                        <h1>Kontakt</h1>
+                        <div></div>
+                    </div>
+                </main>
             </div>
         </div>
     </body>
