@@ -2,6 +2,11 @@
 
 Dieses Dokument enthält exakte Anweisungen, um die Entwicklungsumgebung einheitlich aufzusetzen. Diese Anweisungen sollte jeder Entwickler pro Rechner einmalig ausführen.
 
+## Voraussetzungen
+
+* Composer muss installiert und im Pfad sein, sodass er von der Kommandozeile als `composer` aufgerufen werden kann.
+* Node.js muss installiert und im Pfad sein, sodass `npm` von der Kommandozeile aufgerufen werden kann. Falls nicht, von https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi  herunterladen und installieren.
+
 ## Hosts-File
 
 Folgende Zeile zu `c:\windows\system32\drivers\etc\hosts` hinzufügen:
@@ -60,4 +65,28 @@ CREATE DATABASE `dev.aiot` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 CREATE USER 'aiot'@'localhost' IDENTIFIED BY 'H%21ka/bl3-';
 GRANT USAGE ON *.* TO 'aiot'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
 GRANT ALL PRIVILEGES ON `dev.aiot`.* TO 'aiot'@'localhost'; 
+```
+
+## Composer-Install
+
+Die lokalen Abhängigkeiten auf den im Repository eingecheckten Stand bringen:
+
+```
+composer install
+```
+
+## Copy development environment file
+
+Die Datei `.env.development` auf den Namen `.env` kopieren.
+
+## App-Key generieren
+
+```
+php artisan key:generate
+```
+
+## NPM-Abhängigkeiten installieren
+
+```
+npm install
 ```
