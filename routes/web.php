@@ -48,5 +48,12 @@ Route::post('/patient/{id}', function($id) {
     return view('backend.patient', ['patient' => Patient::find($id)]);
 });
 
+Route::post('/patient/{id}/delete', function($id) {
+    $patient = Patient::find($id);
+    $patient->delete();
+    session()->flash("message", "Patient {$patient->vorname} {$patient->nachname} wurde gelöscht.");
+    return redirect(route('patients'));
+});
+
 Route::post('authenticate', 'Auth\LoginController@login')->name('authenticate');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
