@@ -9,13 +9,25 @@ use Illuminate\Http\Request;
 class PatientController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource, optionally filtered
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('backend.patients', ['patients' => Patient::paginate(15)]);
+        $request = request();
+
+        if($request->has('query')) {
+            $query=$request->get('query');
+            $patients = Patient::where('firstname','like',"%{$query}%")
+                ->orWhere('lastname','like',"%{$query}%")
+                ->orWhere('svnr','like',"%{$query}%")
+                ->orderBy('lastname')
+                ->paginate(15);
+        } else {
+            $patients = Patient::paginate(15);
+        }
+        return view('backend.patients', ['patients' => $patients]);
     }
 
     /**

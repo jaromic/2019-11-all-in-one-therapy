@@ -1,4 +1,5 @@
+DONE pagination in patients
+DONE patient search/filter (non-ajax)
+TODO make sure backend cant be accessed
 TODO input validation for patient (new, update)
-TODO pagination in patients
 TODO sorting in patients
-TODO patient search/filter
