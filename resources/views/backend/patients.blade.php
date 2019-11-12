@@ -35,6 +35,8 @@
             </td>
         </tr>
     @endforeach
+
     </table>
+    {{ $patients->links() }}
     <a href="{{ route('newpatient') }}">Neuer Patient</a>
 @endsection

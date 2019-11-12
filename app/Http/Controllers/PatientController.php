@@ -15,7 +15,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return view('backend.patients', ['patients' => Patient::all()]);
+        return view('backend.patients', ['patients' => Patient::paginate(15)]);
     }
 
     /**
