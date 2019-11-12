@@ -4,3 +4,13 @@ DONE robustness: not found exceptions / findOrFail
 DONE make sure backend cant be accessed
 TODO input validation for patient (new, update)
 TODO sorting in patients
+TODO patient registration
+TODO add documentation
+TODO rechnungen und odku zu patient auflisten
+TODO rechnung eingeben
+TODO alle rechnungen sehen
+TODO show all termine
+TODO enter verfuegbarkeit
+TODO termin buchen
+TODO bestaetigungen schicken
+TODO alles loeschen
