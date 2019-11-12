@@ -12,6 +12,7 @@
             <button type="submit">Suchen</button>
         </form>
     </p>
+    @if (count($patients)>0)
     <table>
         <tr>
             <th>Name</th>
@@ -46,4 +47,7 @@
     </table>
     {{ $patients->links() }}
     <a href="{{ route('newpatient') }}">Neuer Patient</a>
+        @else
+        Keine Patienten gefunden. <a href="{{ route('patients') }}">Alle Patienten anzeigen.</a>
+    @endif
 @endsection

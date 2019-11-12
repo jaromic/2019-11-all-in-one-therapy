@@ -11,7 +11,7 @@
     @if($patient)
         <h1>{{$patient->firstname}} {{$patient->lastname}}</h1>
     @endif
-    <a href="{{ route('patients') }}">Zurück zu allen Patienten</a>
+    <a href="{{ route('patients') }}">Alle Patienten anzeigen.</a>
     <form method="post" action="{{ $patient ? route('patient', $patient->id) : route('newpatient') }}">
         <table>
             <tr>
@@ -56,5 +56,5 @@
             </p>
         </form>
     @endif
-    <a href="{{ route('patients') }}">Zurück zu allen Patienten</a>
+    <a href="{{ route('patients') }}">Alle Patienten anzeigen.</a>
 @endsection
