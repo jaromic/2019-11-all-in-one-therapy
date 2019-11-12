@@ -1,5 +1,6 @@
 DONE pagination in patients
 DONE patient search/filter (non-ajax)
+DONE robustness: not found exceptions / findOrFail
 TODO make sure backend cant be accessed
 TODO input validation for patient (new, update)
 TODO sorting in patients

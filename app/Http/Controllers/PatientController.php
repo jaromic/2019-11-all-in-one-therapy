@@ -59,7 +59,7 @@ class PatientController extends Controller
         $patient->country = $request->country;
         $patient->save();
         session()->flash("message", "Patient {$patient->firstname} {$patient->lastname} wurde angelegt.");
-        return view('backend.patient', ['patient' => Patient::find($patient->id)]);
+        return view('backend.patient', ['patient' => $patient]);
     }
 
 //    /**
@@ -80,7 +80,7 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.patient', ['patient' => Patient::find($id)]);
+        return view('backend.patient', ['patient' => Patient::findOrFail($id)]);
     }
 
     /**
@@ -92,7 +92,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $patient = Patient::find($id);
+        $patient = Patient::findOrFail($id);
         $patient->firstname=$request->firstname;
         $patient->lastname=$request->lastname;
         $patient->email = $request->email;
@@ -103,7 +103,7 @@ class PatientController extends Controller
         $patient->country=$request->country;
         $patient->save();
         session()->flash("message", "Patient {$patient->firstname} {$patient->lastname} wurde gespeichert.");
-        return view('backend.patient', ['patient' => Patient::find($id)]);
+        return view('backend.patient', ['patient' => $patient]);
     }
 
     /**
@@ -114,7 +114,7 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        $patient = Patient::find($id);
+        $patient = Patient::findOrFail($id);
         $message = "Patient {$patient->firstname} {$patient->lastname} wurde gelöscht.";
         $patient->delete();
         session()->flash("message", $message);
