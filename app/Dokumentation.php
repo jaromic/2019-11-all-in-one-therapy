@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dokumentation extends Model
 {
-    public function getUser() {
-        return $this->hasOne('App\User');
+    public function user() {
+        return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function getPatient() {
-        return $this->hasOne('App\Patient');
+    public function patient() {
+        return $this->belongsTo('App\Patient', 'patient_id');
     }
 }

@@ -9,9 +9,10 @@
 @endsection
 @section ('main')
     @if($patient)
-        <h1>{{$patient->firstname}} {{$patient->lastname}}</h1>
+        <h1 xmlns="http://www.w3.org/1999/html">{{$patient->firstname}} {{$patient->lastname}}</h1>
     @endif
     <a href="{{ route('patients') }}">Alle Patienten anzeigen.</a>
+    <h2>Stammdaten</h2>
     <form method="post" action="{{ $patient ? route('patient', $patient->id) : route('newpatient') }}">
         <table>
             <tr>
@@ -55,6 +56,29 @@
                 <button type="submit">Löschen</button>
             </p>
         </form>
+
+        <h2>Dokumentationen</h2>
+        @if($patient->dokumentations->count() > 0 )
+            <table style="max-width: 80%">
+                <tr>
+                    <th>Datum</th>
+                    <th>Autor</th>
+                    <th>Beschreibung</th>
+                </tr>
+                @foreach($patient->dokumentations as $dokumentation)
+                    <tr>
+                        <td>{{ $dokumentation->created_at->toDateString() }}</td>
+                        <td>{{ $dokumentation->user->name }}</td>
+                        <td>{{ $dokumentation->text }}</td>
+                        <td></td>
+                    </tr>
+                @endforeach
+            </table>
+        @else
+            <p>Keine Dokumentation vorhanden.</p>
+        @endif
+
+
     @endif
     <a href="{{ route('patients') }}">Alle Patienten anzeigen.</a>
 @endsection

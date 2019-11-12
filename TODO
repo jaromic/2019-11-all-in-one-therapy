@@ -2,11 +2,12 @@ DONE pagination in patients
 DONE patient search/filter (non-ajax)
 DONE robustness: not found exceptions / findOrFail
 DONE make sure backend cant be accessed
+DONE doku pro patient auflisten
 TODO input validation for patient (new, update)
 TODO sorting in patients
 TODO patient registration
 TODO add documentation
-TODO rechnungen und odku zu patient auflisten
+TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
 TODO alle rechnungen sehen
 TODO show all termine

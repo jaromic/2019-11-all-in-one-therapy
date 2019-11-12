@@ -80,7 +80,8 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.patient', ['patient' => Patient::findOrFail($id)]);
+        $patient = Patient::findOrFail($id);
+        return view('backend.patient', ['patient' => $patient]);
     }
 
     /**
