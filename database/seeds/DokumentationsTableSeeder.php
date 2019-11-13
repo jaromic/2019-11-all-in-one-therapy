@@ -41,8 +41,8 @@ class DokumentationsTableSeeder extends Seeder
                 $dokumentation = new Dokumentation();
                 $user = User::find(1);
                 $patient=$patient;
-                $dokumentation->getUser()->associate($user);
-                $dokumentation->getPatient()->associate($patient);
+                $dokumentation->user()->associate($user);
+                $dokumentation->patient()->associate($patient);
                 $dokumentation->text=$text;
                 $dokumentation->save();
             }
