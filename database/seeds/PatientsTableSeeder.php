@@ -11,7 +11,7 @@ class PatientsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i <= 100; ++$i) {
+        for ($i = 0; $i <= 50; ++$i) {
             $firstname=Arr::random(['Fritz', 'Franz', 'Karl', 'Josef', 'Agnes', 'Birgit', 'Sabine', 'Dorothea']);
             $lastname=Arr::random(['Mueller', 'Maier', 'Brunner', 'Berger', 'Wolf', 'Putz', 'Schmied', 'Hofer',]);
             DB::table('patients')->insert([

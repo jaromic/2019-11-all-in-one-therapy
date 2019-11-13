@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
-    public function dokumentations() {
-        return $this->hasMany('App\Dokumentation')  ;
+    public function documentations() {
+        return $this->hasMany('App\Documentation')->orderBy('id', 'desc')  ;
     }
 
 }

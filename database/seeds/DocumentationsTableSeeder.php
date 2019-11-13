@@ -1,11 +1,11 @@
 <?php
 
-use App\Dokumentation;
+use App\Documentation;
 use App\Patient;
 use App\User;
 use Illuminate\Database\Seeder;
 
-class DokumentationsTableSeeder extends Seeder
+class DocumentationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class DokumentationsTableSeeder extends Seeder
     public function run()
     {
         foreach (Patient::all() as $patient) {
-            for ($i = 0; rand(0, 10); ++$i) {
+            for ($i = 0; rand(0, 8); ++$i) {
                 $text = Arr::random([
                 "Massage bds a.p. I,II dist. Repr.",
                 "Mobilisierung li. Knie nach Verletzung Iliotibialband",
@@ -32,19 +32,13 @@ class DokumentationsTableSeeder extends Seeder
                 "Die grundlegende Ausbildung befähigt jedoch nicht automatisch zur Durchführung dieser Techniken.",
                 "Wird eine zulassungsbeschränkte Therapieform wie beispielsweise Manuelle Therapie, PNF, Neurophysiologische Techniken o. ä. vom Arzt an den Physiotherapeuten verordnet, so ist zur Erbringung des Heilmittels (Rezeptposition) der Qualifizierungs-Nachweis des Therapeuten gegenüber der Krankenkasse notwendig.",
                 ]);
-/*                DB::table('dokumentations')->insert([
-                    'user_id' => User::find(1)->limit(1)->id,
-                    'text' => $text,
-                    'patient_id' => $patient->id,
-                ]);
-*/
-                $dokumentation = new Dokumentation();
+                $documentation = new Documentation();
                 $user = User::find(1);
                 $patient=$patient;
-                $dokumentation->user()->associate($user);
-                $dokumentation->patient()->associate($patient);
-                $dokumentation->text=$text;
-                $dokumentation->save();
+                $documentation->user()->associate($user);
+                $documentation->patient()->associate($patient);
+                $documentation->text=$text;
+                $documentation->save();
             }
         }
     }

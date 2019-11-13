@@ -29,9 +29,9 @@ Route::group(["middleware" => ['auth']], function () {
         return view('backend');
     })->name('backend');
 
-    Route::get('/dokumentation', function() {
-        return view('backend.documentation', ['dokumentationen' => auth()->user()->dokumentations()->paginate(getenv('AIOT_PAGINATE_ROWS'))]);
-    })->name('dokumentation');
+    Route::get('/documentation/{patientId}', 'DocumentationController@create')->name('newdocumentation');
+    Route::post('/documentation/{patientId}', 'DocumentationController@store')->name('documentation');
+    Route::get('/documentations', 'DocumentationController@index')->name('documentations');
 
     Route::get('/patients', 'PatientController@index')->name('patients');
     Route::get('/patient/{id}', 'PatientController@edit')->name('patient');

@@ -58,18 +58,18 @@
         </form>
 
         <h2>Dokumentationen</h2>
-        @if($patient->dokumentations->count() > 0 )
+        @if(!empty($patient->documentations))
             <table style="max-width: 80%">
                 <tr>
                     <th>Datum</th>
                     <th>Autor</th>
                     <th>Beschreibung</th>
                 </tr>
-                @foreach($patient->dokumentations as $dokumentation)
+                @foreach($patient->documentations as $documentation)
                     <tr>
-                        <td>{{ $dokumentation->created_at->toDateString() }}</td>
-                        <td>{{ $dokumentation->user->name }}</td>
-                        <td>{{ $dokumentation->text }}</td>
+                        <td>{{ $documentation->created_at->toDateString() }}</td>
+                        <td>{{ $documentation->user->name }}</td>
+                        <td>{{ $documentation->text }}</td>
                         <td></td>
                     </tr>
                 @endforeach
@@ -80,5 +80,6 @@
 
 
     @endif
-    <a href="{{ route('patients') }}">Alle Patienten anzeigen.</a>
+    <p><a href="{{ route('newdocumentation', $patient->id) }}">Neue Dokumentation</a></p>
+    <p><a href="{{ route('patients') }}">Alle Patienten anzeigen.</a></p>
 @endsection
