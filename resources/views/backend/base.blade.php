@@ -18,7 +18,7 @@
     <a href="{{ route('patients') }}">Patient</a>
     <a href="{{ route('/') }}">Rechnung</a>
     <a href="{{ route('/') }}">Termin</a>
-    <a href="{{ route('/') }}">Dokumentation</a>
+    <a href="{{ route('dokumentation') }}">Dokumentation</a>
     |
     <a href="{{ route('/') }}">Frontend</a>
     <a href="{{ route('logout') }}">Logout</a>
