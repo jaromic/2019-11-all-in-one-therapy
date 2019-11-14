@@ -50,20 +50,17 @@ class LoginController extends Controller
 
     protected function sendLoginResponse(Request $request)
     {
-        Log::info("login success");
-        return $this->AuthenticatesUsers_sendloginResponse($request);
+        //return $this->AuthenticatesUsers_sendloginResponse($request);
+        return redirect(route('backend'));
     }
 
     protected function sendFailedLoginResponse(Request $request)
     {
-        Log::info("login failed");
         return $this->AuthenticatesUsers_sendFailedLoginResponse($request);
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->only(['name', 'password']);
-        Log::info("login: {$credentials['name']}/{$credentials['password']}");
         return $this->AuthenticatesUsers_login($request);
     }
 

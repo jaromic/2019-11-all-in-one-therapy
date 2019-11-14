@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Documentation;
 use App\Patient;
+use App\User;
 use Illuminate\Http\Request;
 
 class DocumentationController extends Controller
@@ -15,7 +16,7 @@ class DocumentationController extends Controller
      */
     public function index()
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-documentation');
 
         return view('backend.documentations', [
             'documentations' => auth()->user()->documentations()->orderBy('id', 'desc')->paginate(getenv('AIOT_PAGINATE_ROWS'))
@@ -30,7 +31,7 @@ class DocumentationController extends Controller
      */
     public function create(int $patientId)
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-documentation');
 
         return view('backend.documentation', [ 'patientId' => $patientId]);
     }
@@ -44,7 +45,7 @@ class DocumentationController extends Controller
      */
     public function store(Request $request, int $patientId)
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-documentation');
 
         $patient = Patient::find($patientId);
 

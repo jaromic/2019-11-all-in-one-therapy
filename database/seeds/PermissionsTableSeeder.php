@@ -17,9 +17,10 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissionNames = [
             'login',
-            'patient',
-            'calendar',
-            'documentation'
+            'view-own-data',
+            'admin-patient',
+            'admin-calendar',
+            'admin-documentation'
         ];
 
         foreach ($permissionNames as $permissionName) {

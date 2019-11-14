@@ -7,8 +7,8 @@ DONE add documentation
 DONE sorting in patients
 DONE input validation for patient (new, update)
 DONE role-based permission system
+DONE patientenportal
 TODO patient registration
-TODO patientenportal
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
 TODO alle rechnungen sehen
@@ -17,3 +17,4 @@ TODO enter verfuegbarkeit
 TODO termin buchen
 TODO bestaetigungen schicken
 TODO alles loeschen
+TODO on delete cascade in db-migrations?

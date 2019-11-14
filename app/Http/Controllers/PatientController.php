@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Patient;
+use App\User;
 use \InvalidArgumentException;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-patient');
 
         $request = request();
 
@@ -56,7 +57,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-patient');
 
         return view('backend.patient', ['patient' => null]);
     }
@@ -69,7 +70,7 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-patient');
 
         $request->validate([
             'firstname' => 'required|alpha_dash|max:255',
@@ -114,7 +115,7 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-patient');
 
         $patient = Patient::findOrFail($id);
         return view('backend.patient', ['patient' => $patient]);
@@ -129,7 +130,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-patient');
 
         $patient = Patient::findOrFail($id);
         $patient->firstname = $request->firstname;
@@ -153,7 +154,7 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        auth()->user()->requirePermission('patient');
+        User::requirePermission('admin-patient');
 
         $patient = Patient::findOrFail($id);
         $message = "Patient {$patient->firstname} {$patient->lastname} wurde gelöscht.";

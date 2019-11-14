@@ -18,7 +18,7 @@ class CreatePatientsTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
-            $table->string('svnr');
+            $table->string('svnr')->unique();
             $table->string('country')->default('Österreich');
             $table->string('city');
             $table->string('plz');

@@ -12,6 +12,7 @@
 */
 
 use App\Patient;
+use App\User;
 
 Route::get('/', function () {
     return view('frontend');
@@ -26,9 +27,9 @@ Route::post('authenticate', 'Auth\LoginController@login')->name('authenticate');
 Route::group(["middleware" => ['auth']], function () {
 
     Route::get('/backend', function () {
-        auth()->user()->requirePermission('login');
-
-        return view('backend');
+        User::requirePermission('login');
+        $user = auth()->user();
+        return view('backend', ['user' => $user, 'patient' => $user->patient])  ;
     })->name('backend');
 
     Route::get('/documentation/{patientId}', 'DocumentationController@create')->name('newdocumentation');

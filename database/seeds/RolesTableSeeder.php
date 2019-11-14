@@ -29,30 +29,36 @@ class RolesTableSeeder extends Seeder
             $role->save();
         }
 
+        /* assign permissions and roles to variables for easier association: */
+
         $loginPermission = Permission::where('name','login')->first();
-        $patientPermission = Permission::where('name','patient')->first();
-        $calendarPermission = Permission::where('name','calendar')->first();
-        $documentationPermission = Permission::where('name','documentation')->first();
+        $ownDataPermission = Permission::where('name', 'view-own-data')->first();
+        $adminPatientPermission = Permission::where('name','admin-patient')->first();
+        $adminCalendarPermission = Permission::where('name','admin-calendar')->first();
+        $adminDocumentationPermission = Permission::where('name','admin-documentation')->first();
 
         $patientRole=Role::where('name', 'patient')->first();
         $assistantRole=Role::where('name', 'assistant')->first();
         $therapistRole=Role::where('name', 'therapist')->first();
         $adminRole=Role::where('name', 'admin')->first();
 
+        /* associate permissions and roles: */
+
         $patientRole->permissions()->attach($loginPermission->id);
+        $patientRole->permissions()->attach($ownDataPermission->id);
 
         $assistantRole->permissions()->attach($loginPermission->id);
-        $assistantRole->permissions()->attach($patientPermission->id);
-        $assistantRole->permissions()->attach($calendarPermission->id);
+        $assistantRole->permissions()->attach($adminPatientPermission->id);
+        $assistantRole->permissions()->attach($adminCalendarPermission->id);
 
         $therapistRole->permissions()->attach($loginPermission->id);
-        $therapistRole->permissions()->attach($patientPermission->id);
-        $therapistRole->permissions()->attach($calendarPermission->id);
-        $therapistRole->permissions()->attach($documentationPermission->id);
+        $therapistRole->permissions()->attach($adminPatientPermission->id);
+        $therapistRole->permissions()->attach($adminCalendarPermission->id);
+        $therapistRole->permissions()->attach($adminDocumentationPermission->id);
 
         $adminRole->permissions()->attach($loginPermission->id);
-        $adminRole->permissions()->attach($patientPermission->id);
-        $adminRole->permissions()->attach($calendarPermission->id);
-        $adminRole->permissions()->attach($documentationPermission->id);
+        $adminRole->permissions()->attach($adminPatientPermission->id);
+        $adminRole->permissions()->attach($adminCalendarPermission->id);
+        $adminRole->permissions()->attach($adminDocumentationPermission->id);
     }
 }

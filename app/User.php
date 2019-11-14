@@ -37,29 +37,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function documentations()
     {
         return $this->hasMany('App\Documentation');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function roles()
     {
         return $this->belongsToMany('App\Role');
     }
 
+    /**
+     * @return string[]
+     */
     public function getRoleNames()
     {
-        $result=[];
-        foreach($this->roles as $role) {
+        $result = [];
+        foreach ($this->roles as $role) {
             array_push($result, $role->name);
         }
         return $result;
     }
 
-    public function getPermissionNames() {
-        $result=[];
-        foreach($this->roles as $role) {
-            $result=array_merge($role->getPermissionNames(), $result);
+    /**
+     * @return string[]
+     */
+    public function getPermissionNames()
+    {
+        $result = [];
+        foreach ($this->roles as $role) {
+            $result = array_merge($role->getPermissionNames(), $result);
         }
         return $result;
     }
@@ -68,19 +81,42 @@ class User extends Authenticatable
      * @param string $permissionName
      * @return bool
      */
-    public function hasPermission(string $permissionName) : bool {
+    public static function hasPermission(string $permissionName): bool
+    {
         $currentUser = auth()->user();
-        $currentUserPermissionNames = $currentUser->getPermissionNames();
-        return in_array($permissionName, $currentUserPermissionNames) ? true : false;
+        if ($currentUser) {
+            $currentUserPermissionNames = $currentUser->getPermissionNames();
+            return in_array($permissionName, $currentUserPermissionNames) ? true : false;
+        } else {
+            return false;
+        }
     }
 
     /**
      * @param string $permissionName
      * @throws AuthorizationException
      */
-    public function requirePermission(string $permissionName) {
-        if(!$this->hasPermission($permissionName)) {
-            throw new AuthorizationException("User '{$this->name}' does not have '{$permissionName}' permission.");
+    public static function requirePermission(string $permissionName)
+    {
+        $currentUser = auth()->user();
+        if(!$currentUser) {
+            throw new AuthorizationException("Not logged in, so user does not have the '{$permissionName}' permission.");
+        } elseif (!$currentUser->hasPermission($permissionName)) {
+            throw new AuthorizationException("User '{$currentUser->name}' does not have '{$permissionName}' permission.");
         }
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function patient() {
+        return $this->belongsTo('App\Patient');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user() {
+        return $this->hasOne('App\User');
     }
 }
