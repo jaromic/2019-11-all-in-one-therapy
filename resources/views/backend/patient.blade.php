@@ -82,9 +82,16 @@
     @if($user)
         <h2>Benutzer</h2>
         <p>Dieser Patient ist unter dem Benutzer {{ $user->name }} registriert.</p>
-        @else
+    @else
         <h2>Kein Benutzer</h2>
         <p>Dieser Patient hat kein Benutzerkonto.</p>
+        <form method="post" action="/patient/{{ $patient->id }}/newaccount">
+            @csrf
+            @error('email')
+            <p class="validation-error">{{ $message }}</p>
+            @enderror
+            <button type="submit">Benutzerkonto erstellen</button>
+        </form>
     @endif
     @if($patient)
         @if(!empty($patient->documentations))

@@ -41,6 +41,7 @@ Route::group(["middleware" => ['auth']], function () {
     Route::get('/patient/', 'PatientController@create')->name('newpatient');
     Route::post('/patient/', 'PatientController@store')->name('newpatient');
     Route::post('/patient/{id}', 'PatientController@update')->name('patient');
+    Route::post('/patient/{id}/newaccount', 'PatientController@newAccount');
     Route::post('/patient/{id}/delete', 'PatientController@destroy');
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 

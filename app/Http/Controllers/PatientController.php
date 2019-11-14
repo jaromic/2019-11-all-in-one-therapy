@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Patient;
 use App\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use \InvalidArgumentException;
 use Illuminate\Http\Request;
 
@@ -162,5 +164,24 @@ class PatientController extends Controller
         $patient->delete();
         session()->flash("message", $message);
         return redirect(route('patients'));
+    }
+
+    public function newAccount($id)
+    {
+        User::requirePermission('admin-patient');
+
+        $patient = Patient::findOrFail($id);
+        $user = new User();
+        $user->name = "{$patient->firstname}.{$patient->lastname}";
+        if (!$patient->email) {
+            throw ValidationException::withMessages(['email' => "Bitte eine E-Mail-Adresse eingeben."]);
+        }
+        $cleartextPassword = $user->name;
+        $user->password = Hash::make($cleartextPassword);
+        $user->email = $patient->email;
+        $user->patient()->associate($patient);
+        $user->save();
+        session()->flash("message", "Benutzer '{$user->name}' mit Kennwort '{$cleartextPassword}' wurde für Patient {$patient->vorname} {$patient->nachname} angelegt.");
+        return back();
     }
 }
