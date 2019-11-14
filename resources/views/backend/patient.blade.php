@@ -80,6 +80,8 @@
 
 
     @endif
-    <p><a href="{{ route('newdocumentation', $patient->id) }}">Neue Dokumentation</a></p>
+    @if($patient)
+        <p><a href="{{ route('newdocumentation', $patient->id) }}">Neue Dokumentation</a></p>
+    @endif
     <p><a href="{{ route('patients') }}">Alle Patienten anzeigen.</a></p>
 @endsection

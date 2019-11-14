@@ -4,8 +4,8 @@ DONE robustness: not found exceptions / findOrFail
 DONE make sure backend cant be accessed
 DONE doku pro patient auflisten
 DONE add documentation
+DONE sorting in patients
 TODO input validation for patient (new, update)
-TODO sorting in patients
 TODO patient registration
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
