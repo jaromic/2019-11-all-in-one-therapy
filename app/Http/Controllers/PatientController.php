@@ -21,17 +21,17 @@ class PatientController extends Controller
         $orderBy = $request->query('orderBy', 'lastname');
         $orderDirection = $request->query('orderDirection', 'asc');
 
-        if(!in_array($orderBy, ['firstname', 'lastname', 'svnr', 'address'])) {
+        if (!in_array($orderBy, ['firstname', 'lastname', 'svnr', 'address'])) {
             throw new InvalidArgumentException("Invalid sort key.");
-        } elseif(!in_array($orderDirection, ['asc', 'desc'])) {
+        } elseif (!in_array($orderDirection, ['asc', 'desc'])) {
             throw new InvalidArgumentException("Invalid sort direction.");
         }
 
-        if($request->has('query')) {
-            $query=$request->get('query');
-            $patients = Patient::where('firstname','like',"%{$query}%")
-                ->orWhere('lastname','like',"%{$query}%")
-                ->orWhere('svnr','like',"%{$query}%")
+        if ($request->has('query')) {
+            $query = $request->get('query');
+            $patients = Patient::where('firstname', 'like', "%{$query}%")
+                ->orWhere('lastname', 'like', "%{$query}%")
+                ->orWhere('svnr', 'like', "%{$query}%")
                 ->orderBy($orderBy, $orderDirection)
                 ->paginate(getenv('AIOT_PAGINATE_ROWS'));
         } else {
@@ -60,11 +60,22 @@ class PatientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'firstname' => 'required|alpha_dash|max:255',
+            'lastname' => 'required|alpha_dash|max:255',
+            'email' => 'email',
+            'svnr' => 'required|numeric|digits:10|unique:patients',
+            'address' => 'string|nullable|max:500',
+            'plz' => 'required|numeric|digits_between:4,5',
+            'city' => 'required|alpha_dash|max:255',
+            'country' => 'required|alpha_dash|max:255',
+        ]);
+
         $patient = new Patient();
         $patient->firstname = $request->firstname;
         $patient->lastname = $request->lastname;
@@ -92,7 +103,7 @@ class PatientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -104,21 +115,21 @@ class PatientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $patient = Patient::findOrFail($id);
-        $patient->firstname=$request->firstname;
-        $patient->lastname=$request->lastname;
+        $patient->firstname = $request->firstname;
+        $patient->lastname = $request->lastname;
         $patient->email = $request->email;
-        $patient->svnr=$request->svnr;
-        $patient->address=$request->address;
-        $patient->plz=$request->plz;
-        $patient->city=$request->city;
-        $patient->country=$request->country;
+        $patient->svnr = $request->svnr;
+        $patient->address = $request->address;
+        $patient->plz = $request->plz;
+        $patient->city = $request->city;
+        $patient->country = $request->country;
         $patient->save();
         session()->flash("message", "Patient {$patient->firstname} {$patient->lastname} wurde gespeichert.");
         return view('backend.patient', ['patient' => $patient]);
@@ -127,7 +138,7 @@ class PatientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
