@@ -37,7 +37,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function documentations() {
+    public function documentations()
+    {
         return $this->hasMany('App\Documentation');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+
+    public function getRoleNames()
+    {
+        $result=[];
+        foreach($this->roles as $role) {
+            array_push($result, $role->name);
+        }
+        return $result;
+    }
+
+    public function getPermissionNames() {
+        $result=[];
+        foreach($this->roles as $role) {
+            $result=array_merge($role->getPermissionNames(), $result);
+        }
+        return $result;
     }
 }

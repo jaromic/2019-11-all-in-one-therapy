@@ -5,8 +5,10 @@ DONE make sure backend cant be accessed
 DONE doku pro patient auflisten
 DONE add documentation
 DONE sorting in patients
-TODO input validation for patient (new, update)
+DONE input validation for patient (new, update)
 TODO patient registration
+TODO patientenportal
+TODO role-based permission system
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
 TODO alle rechnungen sehen
