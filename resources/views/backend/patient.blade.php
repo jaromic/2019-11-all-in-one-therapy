@@ -43,7 +43,8 @@
             @enderror
             <p>
                 <label>E-Mail:</label>
-                <input type="text" name="email" value="{{$patient ? $patient->email : old('email')}}" placeholder="E-Mail">
+                <input type="text" name="email" value="{{$patient ? $patient->email : old('email')}}"
+                       placeholder="E-Mail">
             </p>
             @error('svnr')
             <p class="validation-error">{{ $message }}</p>
@@ -70,23 +71,24 @@
                 <label></label>
                 <input type="text" name="plz" value="{{$patient ? $patient->plz : old('plz')}}" placeholder="PLZ">
                 <input type="text" name="city" value="{{$patient ? $patient->city : old('city')}}" placeholder="Stadt">,
-                <input type="text" name="country" value="{{$patient ? $patient->country: old('country')}}" placeholder="Land">
+                <input type="text" name="country" value="{{$patient ? $patient->country: old('country')}}"
+                       placeholder="Land">
             </p>
             <p>
                 <button type="submit">{{ $patient ? 'Anlegen' : 'Speichern' }}</button>
             </p>
         </div>
     </form>
+    @if($user)
+        <h2>Benutzer</h2>
+        <p>Dieser Patient ist unter dem Benutzer {{ $user->name }} registriert.</p>
+        @else
+        <h2>Kein Benutzer</h2>
+        <p>Dieser Patient hat kein Benutzerkonto.</p>
+    @endif
     @if($patient)
-        <form method="post" action="/patient/{{$patient->id}}/delete">
-            @csrf
-            <p>Diesen Patienten löschen:
-                <button type="submit">Löschen</button>
-            </p>
-        </form>
-
-        <h2>Dokumentationen</h2>
         @if(!empty($patient->documentations))
+            <h2>Dokumentationen</h2>
             <table style="max-width: 80%">
                 <tr>
                     <th>Datum</th>
@@ -103,12 +105,18 @@
                 @endforeach
             </table>
         @else
+            <h2>Keine Dokumentationen</h2>
             <p>Keine Dokumentation vorhanden.</p>
         @endif
 
+        <h2>Datenschutz</h2>
+        <form method="post" action="/patient/{{$patient->id}}/delete">
+            @csrf
+            <p>Diesen Patienten löschen:
+                <button type="submit">Löschen</button>
+            </p>
+        </form>
 
-    @endif
-    @if($patient)
         <p><a href="{{ route('newdocumentation', $patient->id) }}">Neue Dokumentation</a></p>
     @endif
     <p><a href="{{ route('patients') }}">Alle Patienten anzeigen.</a></p>

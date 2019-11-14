@@ -9,13 +9,16 @@ DONE input validation for patient (new, update)
 DONE role-based permission system
 DONE patientenportal
 TODO patient registration
+TODO on delete cascade in db-migrations? sonst kann man patienten mit doku nicht löschen usw.
+
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
 TODO alle rechnungen sehen
+
 TODO show all termine
 TODO enter verfuegbarkeit
 TODO termin buchen
 TODO termin stornieren
 TODO bestaetigungen schicken
+
 TODO eigene Daten loeschen (außer Rechnungen)
-TODO on delete cascade in db-migrations?

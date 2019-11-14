@@ -10,4 +10,8 @@ class Patient extends Model
         return $this->hasMany('App\Documentation')->orderBy('id', 'desc')  ;
     }
 
+    public function user() {
+        return $this->hasOne('App\User');
+    }
+
 }

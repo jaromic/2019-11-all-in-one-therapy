@@ -113,10 +113,4 @@ class User extends Authenticatable
         return $this->belongsTo('App\Patient');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function user() {
-        return $this->hasOne('App\User');
-    }
 }

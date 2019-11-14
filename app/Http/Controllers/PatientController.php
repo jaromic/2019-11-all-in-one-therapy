@@ -118,7 +118,8 @@ class PatientController extends Controller
         User::requirePermission('admin-patient');
 
         $patient = Patient::findOrFail($id);
-        return view('backend.patient', ['patient' => $patient]);
+        $user = $patient->user;
+        return view('backend.patient', ['patient' => $patient, 'user' => $user]);
     }
 
     /**
