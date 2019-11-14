@@ -61,7 +61,7 @@ class PatientController extends Controller
     {
         User::requirePermission('admin-patient');
 
-        return view('backend.patient', ['patient' => null]);
+        return view('backend.patient', ['patient' => null, 'user' => null]);
     }
 
     /**
@@ -96,18 +96,8 @@ class PatientController extends Controller
         $patient->country = $request->country;
         $patient->save();
         session()->flash("message", "Patient {$patient->firstname} {$patient->lastname} wurde angelegt.");
-        return view('backend.patient', ['patient' => $patient]);
+        return view('backend.patient', ['patient' => $patient, 'user' => null]);
     }
-
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param  int  $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function show($id)
-//    {
-//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -145,8 +135,11 @@ class PatientController extends Controller
         $patient->city = $request->city;
         $patient->country = $request->country;
         $patient->save();
+
+        $user = $patient->user;
+
         session()->flash("message", "Patient {$patient->firstname} {$patient->lastname} wurde gespeichert.");
-        return view('backend.patient', ['patient' => $patient]);
+        return view('backend.patient', ['patient' => $patient, $user => null]);
     }
 
     /**
@@ -182,6 +175,6 @@ class PatientController extends Controller
         $user->patient()->associate($patient);
         $user->save();
         session()->flash("message", "Benutzer '{$user->name}' mit Kennwort '{$cleartextPassword}' wurde für Patient {$patient->vorname} {$patient->nachname} angelegt.");
-        return back();
+        return redirect("/patient/{$patient->id}");
     }
 }

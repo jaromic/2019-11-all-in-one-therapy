@@ -82,7 +82,7 @@
     @if($user)
         <h2>Benutzer</h2>
         <p>Dieser Patient ist unter dem Benutzer {{ $user->name }} registriert.</p>
-    @else
+    @elseif($patient)
         <h2>Kein Benutzer</h2>
         <p>Dieser Patient hat kein Benutzerkonto.</p>
         <form method="post" action="/patient/{{ $patient->id }}/newaccount">
