@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Patient;
+use \InvalidArgumentException;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -17,17 +18,33 @@ class PatientController extends Controller
     {
         $request = request();
 
+        $orderBy = $request->query('orderBy', 'lastname');
+        $orderDirection = $request->query('orderDirection', 'asc');
+
+        if(!in_array($orderBy, ['firstname', 'lastname', 'svnr', 'address'])) {
+            throw new InvalidArgumentException("Invalid sort key.");
+        } elseif(!in_array($orderDirection, ['asc', 'desc'])) {
+            throw new InvalidArgumentException("Invalid sort direction.");
+        }
+
         if($request->has('query')) {
             $query=$request->get('query');
             $patients = Patient::where('firstname','like',"%{$query}%")
                 ->orWhere('lastname','like',"%{$query}%")
                 ->orWhere('svnr','like',"%{$query}%")
-                ->orderBy('lastname')
+                ->orderBy($orderBy, $orderDirection)
                 ->paginate(getenv('AIOT_PAGINATE_ROWS'));
         } else {
-            $patients = Patient::paginate(getenv('AIOT_PAGINATE_ROWS'));
+            $patients = Patient::orderBy($orderBy, $orderDirection)
+                ->paginate(getenv('AIOT_PAGINATE_ROWS'));
         }
-        return view('backend.patients', ['patients' => $patients]);
+        return view('backend.patients', [
+            'patients' => $patients,
+            'orderBy' => $orderBy,
+            'orderDirection' => $orderDirection,
+            'orderDirectionIndicator' => ($orderDirection == 'asc') ? '&darr;' : '&uarr;',
+            'inverseOrderDirection' => ($orderDirection == 'asc') ? 'desc' : 'asc',
+        ]);
     }
 
     /**
