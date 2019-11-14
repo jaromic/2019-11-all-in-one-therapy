@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -62,5 +62,25 @@ class User extends Authenticatable
             $result=array_merge($role->getPermissionNames(), $result);
         }
         return $result;
+    }
+
+    /**
+     * @param string $permissionName
+     * @return bool
+     */
+    public function hasPermission(string $permissionName) : bool {
+        $currentUser = auth()->user();
+        $currentUserPermissionNames = $currentUser->getPermissionNames();
+        return in_array($permissionName, $currentUserPermissionNames) ? true : false;
+    }
+
+    /**
+     * @param string $permissionName
+     * @throws AuthorizationException
+     */
+    public function requirePermission(string $permissionName) {
+        if(!$this->hasPermission($permissionName)) {
+            throw new AuthorizationException("User '{$this->name}' does not have '{$permissionName}' permission.");
+        }
     }
 }

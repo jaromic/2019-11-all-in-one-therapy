@@ -15,10 +15,18 @@
 </head>
 <body>
 <nav class="links">
+    @if (auth()->user()->hasPermission('patient'))
     <a href="{{ route('patients') }}">Patient</a>
+    @endif
+    @if (auth()->user()->hasPermission('rechnung'))
     <a href="{{ route('/') }}">Rechnung</a>
+    @endif
+    @if (auth()->user()->hasPermission('calendar'))
     <a href="{{ route('/') }}">Termin</a>
+    @endif
+    @if (auth()->user()->hasPermission('documentation'))
     <a href="{{ route('documentations') }}">Dokumentation</a>
+    @endif
     |
     <a href="{{ route('/') }}">Frontend</a>
     <a href="{{ route('logout') }}">Logout</a>

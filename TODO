@@ -6,9 +6,9 @@ DONE doku pro patient auflisten
 DONE add documentation
 DONE sorting in patients
 DONE input validation for patient (new, update)
+DONE role-based permission system
 TODO patient registration
 TODO patientenportal
-TODO role-based permission system
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
 TODO alle rechnungen sehen

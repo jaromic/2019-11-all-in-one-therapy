@@ -16,6 +16,8 @@ class PatientController extends Controller
      */
     public function index()
     {
+        auth()->user()->requirePermission('patient');
+
         $request = request();
 
         $orderBy = $request->query('orderBy', 'lastname');
@@ -54,6 +56,8 @@ class PatientController extends Controller
      */
     public function create()
     {
+        auth()->user()->requirePermission('patient');
+
         return view('backend.patient', ['patient' => null]);
     }
 
@@ -65,6 +69,8 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
+        auth()->user()->requirePermission('patient');
+
         $request->validate([
             'firstname' => 'required|alpha_dash|max:255',
             'lastname' => 'required|alpha_dash|max:255',
@@ -108,6 +114,8 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
+        auth()->user()->requirePermission('patient');
+
         $patient = Patient::findOrFail($id);
         return view('backend.patient', ['patient' => $patient]);
     }
@@ -121,6 +129,8 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        auth()->user()->requirePermission('patient');
+
         $patient = Patient::findOrFail($id);
         $patient->firstname = $request->firstname;
         $patient->lastname = $request->lastname;
@@ -143,6 +153,8 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
+        auth()->user()->requirePermission('patient');
+
         $patient = Patient::findOrFail($id);
         $message = "Patient {$patient->firstname} {$patient->lastname} wurde gelöscht.";
         $patient->delete();

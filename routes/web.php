@@ -26,6 +26,8 @@ Route::post('authenticate', 'Auth\LoginController@login')->name('authenticate');
 Route::group(["middleware" => ['auth']], function () {
 
     Route::get('/backend', function () {
+        auth()->user()->requirePermission('login');
+
         return view('backend');
     })->name('backend');
 

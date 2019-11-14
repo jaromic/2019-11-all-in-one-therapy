@@ -15,6 +15,8 @@ class DocumentationController extends Controller
      */
     public function index()
     {
+        auth()->user()->requirePermission('patient');
+
         return view('backend.documentations', [
             'documentations' => auth()->user()->documentations()->orderBy('id', 'desc')->paginate(getenv('AIOT_PAGINATE_ROWS'))
         ]);
@@ -28,6 +30,8 @@ class DocumentationController extends Controller
      */
     public function create(int $patientId)
     {
+        auth()->user()->requirePermission('patient');
+
         return view('backend.documentation', [ 'patientId' => $patientId]);
     }
 
@@ -40,6 +44,8 @@ class DocumentationController extends Controller
      */
     public function store(Request $request, int $patientId)
     {
+        auth()->user()->requirePermission('patient');
+
         $patient = Patient::find($patientId);
 
         $documentation = new Documentation();
