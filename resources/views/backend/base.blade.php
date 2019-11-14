@@ -30,7 +30,7 @@
             <a href="{{ route('documentations') }}">Dokumentation</a>
         @endif
         @if (App\User::hasPermission('admin-calendar'))
-        {-- if no admin-calendar, there are probably no menu entries before this --}
+        {{-- if no admin-calendar, there are probably no menu entries before this --}}
         |
         @endif
         <a href="{{ route('/') }}">Frontend</a>

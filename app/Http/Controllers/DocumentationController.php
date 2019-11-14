@@ -33,7 +33,10 @@ class DocumentationController extends Controller
     {
         User::requirePermission('admin-documentation');
 
-        return view('backend.documentation', [ 'patientId' => $patientId]);
+        $patient = Patient::findOrFail($patientId);
+        $user = auth()->user();
+
+        return view('backend.documentation', [ 'patientId' => $patientId, 'patient' => $patient, 'user' => $user]);
     }
 
     /**
