@@ -113,4 +113,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Patient');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function slots() {
+        return $this->hasMany('App\Slot');
+    }
 }

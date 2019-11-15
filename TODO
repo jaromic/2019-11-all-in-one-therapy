@@ -13,14 +13,17 @@ DONE on delete cascade in db-migrations? sonst kann man patienten mit doku nicht
 
 FIXED frontend: height does not scale for patients with many doc entries / no scrolling - output clipped
 
-TODO rechnungen pro patient auflisten
-TODO rechnung eingeben
-TODO alle rechnungen sehen
-
-TODO show all termine
 TODO enter verfuegbarkeit
+TODO show all termine
 TODO termin buchen
 TODO termin stornieren
 TODO bestaetigungen schicken
 
+TODO rechnungen pro patient auflisten
+TODO rechnung eingeben
+TODO alle rechnungen sehen
+
 TODO eigene Daten loeschen (außer Rechnungen)
+
+TODO accordion fuer frontend
+

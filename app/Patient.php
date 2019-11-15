@@ -14,4 +14,8 @@ class Patient extends Model
         return $this->hasOne('App\User');
     }
 
+    public function slots() {
+        return $this->hasMany('App\Slot');
+    }
+
 }
