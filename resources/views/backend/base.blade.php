@@ -24,7 +24,7 @@
             <a href="{{ route('backend') }}">Rechnung</a>
         @endif
         @if (App\User::hasPermission('admin-calendar'))
-            <a href="{{ route('backend') }}">Termin</a>
+            <a href="{{ route('slots') }}">Termin</a>
         @endif
         @if (App\User::hasPermission('admin-documentation'))
             <a href="{{ route('documentations') }}">Dokumentation</a>
