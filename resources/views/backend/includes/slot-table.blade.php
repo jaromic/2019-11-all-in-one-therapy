@@ -17,7 +17,7 @@
                 @if($slot->patient)
                     {{ $slot->patient->firstname }} {{ $slot->patient->lastname }}, {{ $slot->patient->svnr }}
                 @else
-                    Kein Patient
+                    @include('backend.includes.slot-patient-chooser')
                 @endif
             </td>
             <td>
