@@ -20,7 +20,7 @@ body {
 }
 
 .full-height {
-  height: 100vh;
+  margin-top: 50px;
 }
 
 .flex-center {
@@ -37,6 +37,7 @@ body {
 }
 
 .top-right {
+  margin-top: -50px;
   position: absolute;
   right: 10px;
   top: 18px;

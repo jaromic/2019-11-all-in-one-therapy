@@ -11,7 +11,7 @@ DONE patientenportal
 DONE patient registration
 DONE on delete cascade in db-migrations? sonst kann man patienten mit doku nicht löschen usw.
 
-BUG frontend: height does not scale for patients with many doc entries / no scrolling - output clipped
+FIXED frontend: height does not scale for patients with many doc entries / no scrolling - output clipped
 
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
