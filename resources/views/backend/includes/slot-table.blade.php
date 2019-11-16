@@ -1,7 +1,6 @@
 <table style="width:85%">
     <tr>
-        <th>Von</th>
-        <th>Bis</th>
+        <th>Slot</th>
         <th>Patient</th>
         <th>Status</th>
         @if(isset($showDeleteAction) && $showDeleteAction)
@@ -11,10 +10,7 @@
     @foreach($slots as $slot)
         <tr>
             <td>
-                {{ $slot->start }}
-            </td>
-            <td>
-                {{ $slot->end }}
+                {{ $slot->start->format('D d.m. H:i') }} &ndash; {{ $slot->end->format('H:i') }}
             </td>
             <td>
                 @include('backend.includes.slot-patient-chooser', ['slot'=>$slot])

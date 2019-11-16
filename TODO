@@ -15,18 +15,22 @@ FIXED login not possible for created user accounts
 DONE patient als admin/behandler zuweisen
 DONE show all termine (als Arzt)
 DONE Verfügbarkeit löschen
+DONE enter verfuegbarkeit
 
-TODO enter verfuegbarkeit
-TODO show all termien (als Assistent)
+BUG: Klick auf Patient erzeugt Method Illuminate\Database\Eloquent\Collection::paginate does not exist in PatientController, L31
+
+TODO termin buchen (als Patient)
 TODO termin bestätigen (als Arzt/Admin/Assistent)
+
+TODO bestaetigungen schicken
+
+TODO show all termien (als Assistent)
 TODO termin stornieren (als Arzt/Admin/Assistent)
 TODO termin stornieren (als Patient)
 
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
 TODO alle rechnungen sehen
-
-TODO bestaetigungen schicken
 
 TODO eigene Daten loeschen (außer Rechnungen)
 
