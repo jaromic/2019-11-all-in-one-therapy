@@ -31,6 +31,6 @@ class SlotController extends Controller
         $patient = Patient::findOrFail($patientId);
         $slot->patient()->associate($patient);
         $slot->save();
-        return $this->index();
+        return redirect("/slots");
     }
 }
