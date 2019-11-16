@@ -28,6 +28,7 @@ class PatientController extends Controller
         $patients = $this->getPatientsAsRequested($request, $orderBy, $orderDirection, true);
 
         return view('backend.patients', [
+            'patientCount' => Patient::all()->count(),
             'patients' => $patients,
             'orderBy' => $orderBy,
             'orderDirection' => $orderDirection,

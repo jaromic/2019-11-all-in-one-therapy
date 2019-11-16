@@ -70,6 +70,7 @@
 
         </table>
         {{ $patients->links() }}
+        <p>{{ $patientCount }} Patient(en) gefunden</p>
         <a href="{{ route('newpatient') }}">Neuer Patient</a>
     @else
         Keine Patienten gefunden. <a href="{{ route('patients') }}">Alle Patienten anzeigen.</a>
