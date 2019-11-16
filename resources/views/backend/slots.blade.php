@@ -6,7 +6,7 @@
 @section ('main')
     @if($reservedSlots)
         <h1>Meine Terminreservierungen</h1>
-        @include('backend.includes.slot-table', ['slots' => $reservedSlots])
+        @include('backend.includes.slot-table', ['slots' => $reservedAndConfirmedSlots])
     @else
         <p>Keine Terminreservierungen vorhanden.</p>
     @endif

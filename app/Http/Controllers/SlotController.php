@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Patient;
 use App\Slot;
 use App\User;
+use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
 
 class SlotController extends Controller
@@ -16,8 +17,9 @@ class SlotController extends Controller
 
         $availableSlots=$user->slots()->where('status', 'available')->paginate(getenv('AIOT_PAGINATE_ROWS'));
         $reservedSlots=$user->slots()->where('status', 'reserved')->paginate(getenv('AIOT_PAGINATE_ROWS'));
+        $reservedAndConfirmedSlots=$user->slots()->whereIn('status', ['reserved','confirmed'])->paginate(getenv('AIOT_PAGINATE_ROWS'));
 
-        return view('backend.slots', ['reservedSlots'=>$reservedSlots, 'availableSlots'=>$availableSlots, 'patients'=>Patient::orderBy('lastname')->get(), 'slotStati' => $this->getAllStati()]);
+        return view('backend.slots', ['reservedAndConfirmedSlots'=>$reservedAndConfirmedSlots, 'reservedSlots'=>$reservedSlots, 'availableSlots'=>$availableSlots, 'patients'=>Patient::orderBy('lastname')->get(), 'slotStati' => $this->getAllStati()]);
     }
 
     private function getAllStati() {
@@ -30,7 +32,31 @@ class SlotController extends Controller
         $slot = Slot::findOrFail($slotId);
         $patient = Patient::findOrFail($patientId);
         $slot->patient()->associate($patient);
+        $slot->status='confirmed';
         $slot->save();
         return redirect("/slots");
+    }
+
+    public function setStatus($slotId) {
+        $request = request();
+        $status = $request->status;
+
+        $this->checkIsValidStatus($status);
+
+        $slot = Slot::findOrFail($slotId);
+        $slot->status = $status;
+        $slot->patient()->dissociate();
+        $slot->save();
+        return redirect("/slots");
+    }
+
+    /**
+     * @param $status
+     */
+    public function checkIsValidStatus($status): void
+    {
+        if (!in_array($status, $this->getAllStati())) {
+            throw new InvalidArgumentException("Invalid status.");
+        }
     }
 }
