@@ -14,14 +14,10 @@
                 {{ $slot->end }}
             </td>
             <td>
-                @if($slot->patient)
-                    {{ $slot->patient->firstname }} {{ $slot->patient->lastname }}, {{ $slot->patient->svnr }}
-                @else
-                    Kein Patient
-                @endif
+                @include('backend.includes.slot-patient-chooser', ['slot'=>$slot])
             </td>
             <td>
-                {{ ucfirst($slot->status) }}
+                @include('backend.includes.slot-status-chooser', ['slot' => $slot, 'slotStati' => $slotStati])
             </td>
         </tr>
         @endforeach

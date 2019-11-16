@@ -12,6 +12,7 @@ DONE patient registration
 DONE on delete cascade in db-migrations? sonst kann man patienten mit doku nicht löschen usw.
 FIXED frontend: height does not scale for patients with many doc entries / no scrolling - output clipped
 FIXED login not possible for created user accounts
+DONE patient als admin/behandler zuweisen
 
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben

@@ -37,6 +37,7 @@ Route::group(["middleware" => ['auth']], function () {
     Route::get('/documentations', 'DocumentationController@index')->name('documentations');
 
     Route::get('/slots', 'SlotController@index')->name('slots');
+    Route::post('/slot/{id}/assignpatient', 'SlotController@assignPatient')->name('assignpatient');
 
     Route::get('/patients', 'PatientController@index')->name('patients');
     Route::get('/patient/{id}', 'PatientController@edit')->name('patient');

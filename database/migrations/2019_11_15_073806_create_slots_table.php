@@ -1,11 +1,13 @@
 <?php
 
+use App\Slot;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateSlotsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -25,7 +27,7 @@ class CreateSlotsTable extends Migration
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE slots ADD CONSTRAINT chk_status CHECK (status IN ('available', 'reserved', 'confirmed', 'cancelled'));");
+        DB::statement("ALTER TABLE slots ADD CONSTRAINT chk_status CHECK (status IN ('" . implode("', '", Slot::SLOT_STATI). "'));");
     }
 
     /**

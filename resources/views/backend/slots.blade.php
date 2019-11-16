@@ -16,4 +16,5 @@
     @else
         <p>Keine Verfügbarkeiten vorhanden.</p>
     @endif
+
 @endsection
