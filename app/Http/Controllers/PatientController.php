@@ -25,10 +25,10 @@ class PatientController extends Controller
 
         list($orderBy, $orderDirection) = $this->determineOrdering($request);
 
-        $patients = $this->getPatientsAsRequested($request, $orderBy, $orderDirection);
+        $patients = $this->getPatientsAsRequested($request, $orderBy, $orderDirection, true);
 
         return view('backend.patients', [
-            'patients' => $patients->paginate(getenv('AIOT_PAGINATE_ROWS')),
+            'patients' => $patients,
             'orderBy' => $orderBy,
             'orderDirection' => $orderDirection,
             'orderDirectionIndicator' => ($orderDirection == 'asc') ? '&darr;' : '&uarr;',
@@ -199,16 +199,21 @@ class PatientController extends Controller
      * @param $orderDirection
      * @return mixed
      */
-    private function getPatientsAsRequested($request, $orderBy, $orderDirection)
+    private function getPatientsAsRequested($request, $orderBy, $orderDirection, $paginate=false)
     {
         if ($request->has('query')) {
             $query = $request->get('query');
-            $patients = Patient::where('firstname', 'like', "%{$query}%")
+            $queryResult=Patient::where('firstname', 'like', "%{$query}%")
                 ->orWhere('lastname', 'like', "%{$query}%")
                 ->orWhere('svnr', 'like', "%{$query}%")
-                ->orderBy($orderBy, $orderDirection)->get();
+                ->orderBy($orderBy, $orderDirection);
         } else {
-            $patients = Patient::orderBy($orderBy, $orderDirection)->get();
+            $queryResult = Patient::orderBy($orderBy, $orderDirection);
+        }
+        if($paginate) {
+            $patients = $queryResult->paginate(getenv('AIOT_PAGINATE_ROWS'));
+        } else {
+            $patients = $queryResult->get();
         }
         return $patients;
     }

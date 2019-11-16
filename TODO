@@ -17,7 +17,7 @@ DONE show all termine (als Arzt)
 DONE Verfügbarkeit löschen
 DONE enter verfuegbarkeit
 
-BUG: Klick auf Patient erzeugt Method Illuminate\Database\Eloquent\Collection::paginate does not exist in PatientController, L31
+FIXED Klick auf Patient erzeugt Method Illuminate\Database\Eloquent\Collection::paginate does not exist in PatientController, L31
 
 TODO termin buchen (als Patient)
 TODO termin bestätigen (als Arzt/Admin/Assistent)
