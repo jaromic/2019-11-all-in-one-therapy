@@ -46,5 +46,5 @@ Route::group(["middleware" => ['auth']], function () {
     Route::post('/patient/{id}/newaccount', 'PatientController@newAccount');
     Route::post('/patient/{id}/delete', 'PatientController@destroy');
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
+    Route::get('/patients.json', 'PatientController@indexJSON');
 });

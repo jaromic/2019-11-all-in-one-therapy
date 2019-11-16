@@ -23,28 +23,12 @@ class PatientController extends Controller
 
         $request = request();
 
-        $orderBy = $request->query('orderBy', 'lastname');
-        $orderDirection = $request->query('orderDirection', 'asc');
+        list($orderBy, $orderDirection) = $this->determineOrdering($request);
 
-        if (!in_array($orderBy, ['firstname', 'lastname', 'svnr', 'address'])) {
-            throw new InvalidArgumentException("Invalid sort key.");
-        } elseif (!in_array($orderDirection, ['asc', 'desc'])) {
-            throw new InvalidArgumentException("Invalid sort direction.");
-        }
+        $patients = $this->getPatientsAsRequested($request, $orderBy, $orderDirection);
 
-        if ($request->has('query')) {
-            $query = $request->get('query');
-            $patients = Patient::where('firstname', 'like', "%{$query}%")
-                ->orWhere('lastname', 'like', "%{$query}%")
-                ->orWhere('svnr', 'like', "%{$query}%")
-                ->orderBy($orderBy, $orderDirection)
-                ->paginate(getenv('AIOT_PAGINATE_ROWS'));
-        } else {
-            $patients = Patient::orderBy($orderBy, $orderDirection)
-                ->paginate(getenv('AIOT_PAGINATE_ROWS'));
-        }
         return view('backend.patients', [
-            'patients' => $patients,
+            'patients' => $patients->paginate(getenv('AIOT_PAGINATE_ROWS')),
             'orderBy' => $orderBy,
             'orderDirection' => $orderDirection,
             'orderDirectionIndicator' => ($orderDirection == 'asc') ? '&darr;' : '&uarr;',
@@ -178,4 +162,72 @@ class PatientController extends Controller
         session()->flash("message", "Benutzer '{$user->name}' mit Kennwort '{$cleartextPassword}' wurde für Patient {$patient->vorname} {$patient->nachname} angelegt.");
         return redirect("/patient/{$patient->id}");
     }
+
+    public function indexJSON(){
+        User::requirePermission('admin-patient');
+
+        $request=request();
+
+        list($orderBy, $orderDirection) = $this->determineOrdering($request);
+
+        $patients = $this->getPatientsAsRequested($request, $orderBy, $orderDirection);
+        $patientsArray = $this->patientsToArray($patients);
+
+        return response()->json($patientsArray);
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    private function determineOrdering($request): array
+    {
+        $orderBy = $request->query('orderBy', 'lastname');
+        $orderDirection = $request->query('orderDirection', 'asc');
+
+        if (!in_array($orderBy, ['firstname', 'lastname', 'svnr', 'address'])) {
+            throw new InvalidArgumentException("Invalid sort key.");
+        } elseif (!in_array($orderDirection, ['asc', 'desc'])) {
+            throw new InvalidArgumentException("Invalid sort direction.");
+        }
+        return array($orderBy, $orderDirection);
+    }
+
+    /**
+     * @param $request
+     * @param $orderBy
+     * @param $orderDirection
+     * @return mixed
+     */
+    private function getPatientsAsRequested($request, $orderBy, $orderDirection)
+    {
+        if ($request->has('query')) {
+            $query = $request->get('query');
+            $patients = Patient::where('firstname', 'like', "%{$query}%")
+                ->orWhere('lastname', 'like', "%{$query}%")
+                ->orWhere('svnr', 'like', "%{$query}%")
+                ->orderBy($orderBy, $orderDirection)->get();
+        } else {
+            $patients = Patient::orderBy($orderBy, $orderDirection)->get();
+        }
+        return $patients;
+    }
+
+    /**
+     * @param $patients
+     * @return false|string
+     */
+    private function patientsToArray($patients)
+    {
+        $patientsArray = [];
+        foreach ($patients as $patient) {
+            $patientArray = [
+                'id' => $patient->id,
+                'label' => "{$patient->firstname} {$patient->lastname} ({$patient->svnr})"
+            ];
+            array_push($patientsArray, $patientArray);
+        }
+        return $patientsArray;
+    }
+
 }
