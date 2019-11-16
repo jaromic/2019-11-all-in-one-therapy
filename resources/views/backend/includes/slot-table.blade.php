@@ -4,8 +4,11 @@
         <th>Bis</th>
         <th>Patient</th>
         <th>Status</th>
+        @if(isset($showDeleteAction) && $showDeleteAction)
+            <th>Aktion</th>
+        @endif
     </tr>
-    @forelse($slots as $slot)
+    @foreach($slots as $slot)
         <tr>
             <td>
                 {{ $slot->start }}
@@ -19,7 +22,15 @@
             <td>
                 @include('backend.includes.slot-status-chooser', ['slot' => $slot, 'slotStati' => $slotStati])
             </td>
+            @if(isset($showDeleteAction) && $showDeleteAction)
+                <td>
+                    <form method="post" action=" {{ "/slot/{$slot->id}/destroy" }}">
+                        @csrf
+                        <button type="submit">X</button>
+                    </form>
+                </td>
+            @endif
         </tr>
-        @endforeach
+    @endforeach
 </table>
 {{ $slots->links() }}</p>

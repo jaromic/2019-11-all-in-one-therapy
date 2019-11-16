@@ -12,7 +12,7 @@
     @endif
     @if($availableSlots)
         <h1>Meine Verfügbarkeiten</h1>
-        @include('backend.includes.slot-table', ['slots' => $availableSlots])
+        @include('backend.includes.slot-table', ['slots' => $availableSlots, 'showDeleteAction'=>true])
     @else
         <p>Keine Verfügbarkeiten vorhanden.</p>
     @endif

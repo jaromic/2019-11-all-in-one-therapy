@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class SlotController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function index() {
         User::requirePermission('admin-calendar');
 
@@ -26,6 +30,10 @@ class SlotController extends Controller
         return Slot::SLOT_STATI;
     }
 
+    /**
+     * @param $slotId
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function assignPatient($slotId) {
         $request = request();
         $patientId = $request->patient_id;
@@ -37,6 +45,10 @@ class SlotController extends Controller
         return redirect("/slots");
     }
 
+    /**
+     * @param $slotId
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function setStatus($slotId) {
         $request = request();
         $status = $request->status;
@@ -59,4 +71,14 @@ class SlotController extends Controller
             throw new InvalidArgumentException("Invalid status.");
         }
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id) {
+        Slot::destroy($id);
+        return redirect('/slots');
+    }
+
 }

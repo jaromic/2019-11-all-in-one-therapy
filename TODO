@@ -14,8 +14,8 @@ FIXED frontend: height does not scale for patients with many doc entries / no sc
 FIXED login not possible for created user accounts
 DONE patient als admin/behandler zuweisen
 DONE show all termine (als Arzt)
+DONE Verfügbarkeit löschen
 
-TODO Verfügbarkeit löschen
 TODO enter verfuegbarkeit
 TODO show all termien (als Assistent)
 TODO termin bestätigen (als Arzt/Admin/Assistent)
