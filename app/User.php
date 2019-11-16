@@ -99,7 +99,7 @@ class User extends Authenticatable
     public static function requirePermission(string $permissionName)
     {
         $currentUser = auth()->user();
-        if(!$currentUser) {
+        if (!$currentUser) {
             throw new AuthorizationException("Not logged in, so user does not have the '{$permissionName}' permission.");
         } elseif (!$currentUser->hasPermission($permissionName)) {
             throw new AuthorizationException("User '{$currentUser->name}' does not have '{$permissionName}' permission.");
@@ -109,7 +109,8 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function patient() {
+    public function patient()
+    {
         return $this->belongsTo('App\Patient');
     }
 
@@ -119,4 +120,15 @@ class User extends Authenticatable
     public function slots() {
         return $this->hasMany('App\Slot');
     }
+
+    /**
+     * @param $userRoleName
+     */
+    public function addRole($userRoleName): void
+    {
+        if(!$this->id) { throw new \Exception("Please save the object before trying to access its relations."); }
+        $role = Role::where('name', $userRoleName)->firstOrFail();
+        $this->roles()->attach($role->id);
+    }
+
 }

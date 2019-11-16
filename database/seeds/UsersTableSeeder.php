@@ -56,8 +56,9 @@ class UsersTableSeeder extends Seeder
             }
             $user->save();
             foreach ($userData['roles'] as $userRoleName) {
-                $user->roles()->attach(Role::where('name', $userRoleName)->first()->id);
+                $user->addRole($userRoleName);
             }
         }
     }
+
 }

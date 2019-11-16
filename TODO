@@ -10,18 +10,19 @@ DONE role-based permission system
 DONE patientenportal
 DONE patient registration
 DONE on delete cascade in db-migrations? sonst kann man patienten mit doku nicht löschen usw.
-
 FIXED frontend: height does not scale for patients with many doc entries / no scrolling - output clipped
+FIXED login not possible for created user accounts
 
+TODO rechnungen pro patient auflisten
+TODO rechnung eingeben
+TODO alle rechnungen sehen
+
+TODO show all termine
 TODO enter verfuegbarkeit
 TODO show all termine
 TODO termin buchen
 TODO termin stornieren
 TODO bestaetigungen schicken
-
-TODO rechnungen pro patient auflisten
-TODO rechnung eingeben
-TODO alle rechnungen sehen
 
 TODO eigene Daten loeschen (außer Rechnungen)
 

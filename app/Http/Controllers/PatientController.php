@@ -174,6 +174,7 @@ class PatientController extends Controller
         $user->email = $patient->email;
         $user->patient()->associate($patient);
         $user->save();
+        $user->addRole('patient');
         session()->flash("message", "Benutzer '{$user->name}' mit Kennwort '{$cleartextPassword}' wurde für Patient {$patient->vorname} {$patient->nachname} angelegt.");
         return redirect("/patient/{$patient->id}");
     }
