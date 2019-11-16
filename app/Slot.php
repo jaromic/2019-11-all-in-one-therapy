@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slot extends Model
 {
-    public const SLOT_STATI = [ 'available', 'reserved', 'confirmed', 'cancelled' ];
+    public const SLOT_STATI = [ 'available', 'reserved', 'confirmed' ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
