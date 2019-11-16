@@ -13,16 +13,19 @@ DONE on delete cascade in db-migrations? sonst kann man patienten mit doku nicht
 FIXED frontend: height does not scale for patients with many doc entries / no scrolling - output clipped
 FIXED login not possible for created user accounts
 DONE patient als admin/behandler zuweisen
+DONE show all termine (als Arzt)
+
+TODO Verfügbarkeit löschen
+TODO enter verfuegbarkeit
+TODO show all termien (als Assistent)
+TODO termin bestätigen (als Arzt/Admin/Assistent)
+TODO termin stornieren (als Arzt/Admin/Assistent)
+TODO termin stornieren (als Patient)
 
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben
 TODO alle rechnungen sehen
 
-TODO show all termine
-TODO enter verfuegbarkeit
-TODO show all termine
-TODO termin buchen
-TODO termin stornieren
 TODO bestaetigungen schicken
 
 TODO eigene Daten loeschen (außer Rechnungen)
