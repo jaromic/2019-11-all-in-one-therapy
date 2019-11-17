@@ -118,5 +118,6 @@ Applikation erzeugen
 ```
 composer create-project --prefer-dist laravel/laravel temp
 mv -vi temp/* ./
+mv -vi temp/.??* ./
 rmdir temp
 ```
