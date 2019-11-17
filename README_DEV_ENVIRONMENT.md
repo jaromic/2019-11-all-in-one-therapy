@@ -77,13 +77,9 @@ Die lokalen Abhängigkeiten auf den im Repository eingecheckten Stand bringen:
 composer install
 ```
 
-## Copy development environment file
+## Development environment file kopieren
 
-Die Datei `.env.development` auf den Namen `.env` kopieren.
-`.env` der .gitignore hinzufügen
-
-## node_modules in Git ignorieren
-`node_modules` der .gitignore hinzufügen, da sonst Git-Operationen sehr lange dauern können
+Die Datei `.env.development` auf den Namen `.env` kopieren, diese dabei ggfs. überschreiben.
 
 ## App-Key generieren
 
@@ -113,7 +109,7 @@ npm run development
 
 # Initiale Kommandos
 
-Applikation erzeugen
+## Applikation erzeugen
 
 ```
 composer create-project --prefer-dist laravel/laravel temp
