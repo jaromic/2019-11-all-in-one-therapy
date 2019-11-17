@@ -69,6 +69,15 @@ GRANT USAGE ON *.* TO 'aiot'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 
 GRANT ALL PRIVILEGES ON `dev.aiot`.* TO 'aiot'@'localhost'; 
 ```
 
+## Applikation erzeugen
+
+```
+composer create-project --prefer-dist laravel/laravel temp
+mv -vi temp/* ./
+mv -vi temp/.??* ./
+rmdir temp
+```
+
 ## Composer-Install
 
 Die lokalen Abhängigkeiten auf den im Repository eingecheckten Stand bringen:
@@ -80,6 +89,9 @@ composer install
 ## Development environment file kopieren
 
 Die Datei `.env.development` auf den Namen `.env` kopieren, diese dabei ggfs. überschreiben.
+```
+cp -v .env.development .env
+```
 
 ## App-Key generieren
 
@@ -105,15 +117,4 @@ php artisan migrate:fresh --seed
 
 ```
 npm run development
-```
-
-# Initiale Kommandos
-
-## Applikation erzeugen
-
-```
-composer create-project --prefer-dist laravel/laravel temp
-mv -vi temp/* ./
-mv -vi temp/.??* ./
-rmdir temp
 ```
