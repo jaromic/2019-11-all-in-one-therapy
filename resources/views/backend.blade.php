@@ -6,7 +6,6 @@
 @section ('main')
     <div style="width:400px; margin-left: auto; margin-right: auto">
         <h1>Willkommen, {{ $user->name }}!</h1>
-
         <p>
         Sie haben aufgrund Ihrer Rolle(n) {{ implode(", ", $user->getRoleNames()) }} die folgenden
         Berechtigungen: {{ implode(", ", $user->getPermissionNames()) }}

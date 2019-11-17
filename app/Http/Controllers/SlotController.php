@@ -7,6 +7,8 @@ use App\Slot;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\ViewErrorBag;
+use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
 
 class SlotController extends Controller
@@ -62,7 +64,9 @@ class SlotController extends Controller
 
         $slot = Slot::findOrFail($slotId);
         $slot->status = $status;
-        $slot->patient()->dissociate();
+        if($status=='available') {
+            $slot->patient()->dissociate();
+        }
         $slot->save();
         return redirect("/slots");
     }
@@ -94,11 +98,28 @@ class SlotController extends Controller
     {
         $request = request();
         $slot = Slot::findOrFail($request->slot_id);
-        $patient = auth()->useR()->patient;
+        $patient = auth()->user()->patient;
 
         $slot->patient()->associate($patient);
-        $slot->status='reserved';
+        $slot->status = 'reserved';
         $slot->save();
+        return redirect(route('backend'));
+    }
+
+    /**
+     *
+     */
+    public function cancel($slot_id)
+    {
+        $slot = Slot::findOrFail($slot_id);
+
+        if ($slot->status == 'reserved') {
+            $slot->patient()->dissociate();
+            $slot->status = 'available';
+            $slot->save();
+        } else {
+            return redirect(route('backend'))->withErrors(['status'=>'Bereits vom Behandler bestätigte Termine können nicht storniert werden.']);
+        }
         return redirect(route('backend'));
     }
 

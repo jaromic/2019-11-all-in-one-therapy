@@ -42,6 +42,7 @@ Route::group(["middleware" => ['auth']], function () {
     Route::post('/slot/{id}/assignpatient', 'SlotController@assignPatient');
     Route::post('/slot/{id}/setstatus', 'SlotController@setStatus');
     Route::post('/slot/{id}/destroy', 'SlotController@destroy');
+    Route::post('/slot/{id}/cancel', 'SlotController@cancel');
     Route::post('/slot/reserve', 'SlotController@reserve');
 
     Route::get('/patients', 'PatientController@index')->name('patients');

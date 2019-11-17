@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Slot extends Model
 {
@@ -48,7 +49,13 @@ class Slot extends Model
      */
     public static function getMyReservedAndConfirmedSlots() {
         $user = auth()->user();
-        return $user->patient->slots()->whereIn('status', ['reserved', 'confirmed'])->get();
+        $patient = $user->patient;
+        if($patient) {
+            $result =$patient->slots()->whereIn('status', ['reserved', 'confirmed'])->get();
+        } else {
+            $result=new Collection();
+        }
+        return $result;
     }
 
     /**

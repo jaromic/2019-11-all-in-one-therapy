@@ -22,13 +22,13 @@ FIXED Klick auf Patient erzeugt Method Illuminate\Database\Eloquent\Collection::
 DONE verfuegbare Termine pro Behandler sehen (als Patient)
 DONE termine buchen (als Patient)
 
-TODO termin stornieren (als Patient)
+DONE termin stornieren (als Patient)
+DONE termin bestätigen (als Arzt/Admin/Assistent)
+DONE termin stornieren (als Arzt/Admin/Assistent)
 
-TODO termin bestätigen (als Arzt/Admin/Assistent)
 TODO bestaetigungen schicken
 
 TODO show all termine (als Assistent)
-TODO termin stornieren (als Arzt/Admin/Assistent)
 
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben

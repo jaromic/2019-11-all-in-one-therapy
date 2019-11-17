@@ -6,6 +6,9 @@
         <th>Aktion</th>
     </tr>
 
+    @error('status')
+    <p class="validation-error">{{ $message }}</p>
+    @enderror
     @foreach($slots as $slot)
         <tr>
             <td>
