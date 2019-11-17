@@ -12,6 +12,7 @@
 */
 
 use App\Patient;
+use App\Slot;
 use App\User;
 
 Route::get('/', function () {
@@ -29,7 +30,7 @@ Route::group(["middleware" => ['auth']], function () {
     Route::get('/backend', function () {
         User::requirePermission('login');
         $user = auth()->user();
-        return view('backend', ['user' => $user, 'patient' => $user->patient])  ;
+        return view('backend', ['user' => $user, 'patient' => $user->patient, 'mySlots' => Slot::getMyReservedAndConfirmedSlots(), 'availableSlots' => Slot::getAvailableSlots()])  ;
     })->name('backend');
 
     Route::get('/documentation/{patientId}', 'DocumentationController@create')->name('newdocumentation');
@@ -41,6 +42,7 @@ Route::group(["middleware" => ['auth']], function () {
     Route::post('/slot/{id}/assignpatient', 'SlotController@assignPatient');
     Route::post('/slot/{id}/setstatus', 'SlotController@setStatus');
     Route::post('/slot/{id}/destroy', 'SlotController@destroy');
+    Route::post('/slot/reserve', 'SlotController@reserve');
 
     Route::get('/patients', 'PatientController@index')->name('patients');
     Route::get('/patient/{id}', 'PatientController@edit')->name('patient');

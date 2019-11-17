@@ -6,13 +6,13 @@
 @section ('main')
     @if($reservedSlots)
         <h1>Meine Terminreservierungen</h1>
-        @include('backend.includes.slot-table', ['slots' => $reservedAndConfirmedSlots])
+        @include('backend.includes.admin.slot-table', ['slots' => $reservedAndConfirmedSlots])
     @else
         <p>Keine Terminreservierungen vorhanden.</p>
     @endif
     @if($availableSlots)
         <h1>Meine Verfügbarkeiten</h1>
-        @include('backend.includes.slot-table', ['slots' => $availableSlots, 'showDeleteAction'=>true])
+        @include('backend.includes.admin.slot-table', ['slots' => $availableSlots, 'showDeleteAction'=>true])
     @else
         <p>Keine Verfügbarkeiten vorhanden.</p>
     @endif

@@ -7,18 +7,27 @@
             <th>Aktion</th>
         @endif
     </tr>
-    @foreach($slots as $slot)
+
+    @foreach($slots->all() as $slot)
         <tr>
             <td>
                 {{ $slot->start->format('D d.m. H:i') }} &ndash; {{ $slot->end->format('H:i') }}
             </td>
             <td>
-                @include('backend.includes.slot-patient-chooser', ['slot'=>$slot])
+                @if(App\User::hasPermission('admin-calendar'))
+                    @include('backend.includes.slot-patient-chooser', ['slot'=>$slot])
+                @else
+                    {{$slot->patient ?? 'Kein Patient' }}
+                @endif
             </td>
             <td>
-                @include('backend.includes.slot-status-chooser', ['slot' => $slot, 'slotStati' => $slotStati])
+                @if(App\User::hasPermission('admin-calendar'))
+                    @include('backend.includes.slot-status-chooser', ['slot' => $slot, 'slotStati' => $slotStati])
+                @else
+                    {{$slot->status}}
+                @endif
             </td>
-            @if(isset($showDeleteAction) && $showDeleteAction)
+            @if(isset($showDeleteAction) && $showDeleteAction && App\User::hasPermission('admin-calendar'))
                 <td>
                     <form method="post" action=" {{ "/slot/{$slot->id}/destroy" }}">
                         @csrf
@@ -29,4 +38,4 @@
         </tr>
     @endforeach
 </table>
-{{ $slots->links() }}</p>
+<p>{{ $slots->links() }}</p>

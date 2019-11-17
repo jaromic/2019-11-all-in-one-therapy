@@ -42,4 +42,19 @@ class Slot extends Model
         }
         return $dates;
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getMyReservedAndConfirmedSlots() {
+        $user = auth()->user();
+        return $user->patient->slots()->whereIn('status', ['reserved', 'confirmed'])->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getAvailableSlots() {
+        return Slot::where('status', 'available')->get();
+    }
 }

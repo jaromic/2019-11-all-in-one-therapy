@@ -19,14 +19,16 @@ DONE enter verfuegbarkeit
 
 FIXED Klick auf Patient erzeugt Method Illuminate\Database\Eloquent\Collection::paginate does not exist in PatientController, L31
 
-TODO termin buchen (als Patient)
-TODO termin bestätigen (als Arzt/Admin/Assistent)
+DONE verfuegbare Termine pro Behandler sehen (als Patient)
+DONE termine buchen (als Patient)
 
+TODO termin stornieren (als Patient)
+
+TODO termin bestätigen (als Arzt/Admin/Assistent)
 TODO bestaetigungen schicken
 
-TODO show all termien (als Assistent)
+TODO show all termine (als Assistent)
 TODO termin stornieren (als Arzt/Admin/Assistent)
-TODO termin stornieren (als Patient)
 
 TODO rechnungen pro patient auflisten
 TODO rechnung eingeben

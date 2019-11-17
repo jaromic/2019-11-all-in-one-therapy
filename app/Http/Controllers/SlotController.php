@@ -87,6 +87,25 @@ class SlotController extends Controller
         return redirect('/slots');
     }
 
+    /**
+     *
+     */
+    public function reserve()
+    {
+        $request = request();
+        $slot = Slot::findOrFail($request->slot_id);
+        $patient = auth()->useR()->patient;
+
+        $slot->patient()->associate($patient);
+        $slot->status='reserved';
+        $slot->save();
+        return redirect(route('backend'));
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
+     */
     public function createForDay()
     {
         $request = request();
