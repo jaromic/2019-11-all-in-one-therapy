@@ -1,6 +1,13 @@
 # Aufsetzen der Entwicklungsumgebung
 
-Dieses Dokument enthält exakte Anweisungen, um die Entwicklungsumgebung einheitlich aufzusetzen. Diese Anweisungen sollte jeder Entwickler pro Rechner einmalig ausführen.
+Dieses Dokument enthält exakte Anweisungen, um die Entwicklungsumgebung einheitlich aufzusetzen. Diese Anweisungen sollte jeder Entwickler pro Rechner einmalig ausführen. Die Kommandos sind im Projekt-Root in einer Git-Bash auszuführen
+ * weil `CMD.exe` nicht alle benötigten Befehle unterstützt
+ * weil `CMD.exe` keine History bietet
+
+## Voraussetzungen
+
+* Composer muss installiert und im Pfad sein, sodass er von der Kommandozeile als `composer` aufgerufen werden kann.
+* Node.js muss installiert und im Pfad sein, sodass `npm` von der Kommandozeile aufgerufen werden kann. Falls nicht, von https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi  herunterladen und installieren.
 
 ## Hosts-File
 
@@ -60,4 +67,56 @@ CREATE DATABASE `dev.aiot` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`;
 CREATE USER 'aiot'@'localhost' IDENTIFIED BY 'H%21ka/bl3-';
 GRANT USAGE ON *.* TO 'aiot'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
 GRANT ALL PRIVILEGES ON `dev.aiot`.* TO 'aiot'@'localhost'; 
+```
+
+## Composer-Install
+
+Die lokalen Abhängigkeiten auf den im Repository eingecheckten Stand bringen:
+
+```
+composer install
+```
+
+## Copy development environment file
+
+Die Datei `.env.development` auf den Namen `.env` kopieren.
+`.env` der .gitignore hinzufügen
+
+## node_modules in Git ignorieren
+`node_modules` der .gitignore hinzufügen, da sonst Git-Operationen sehr lange dauern können
+
+## App-Key generieren
+
+```
+php artisan key:generate
+```
+
+## NPM-Abhängigkeiten installieren
+
+```
+npm install
+```
+
+# Laufend benötigte Kommandos
+
+## DB zurücksetzen / Migrationen und Seeding ausführen
+
+```
+php artisan migrate:fresh --seed
+```
+
+## JS/CSS-Assets bauen
+
+```
+npm run development
+```
+
+# Initiale Kommandos
+
+Applikation erzeugen
+
+```
+composer create-project --prefer-dist laravel/laravel temp
+mv -avi temp/* ./
+rmdir temp
 ```
