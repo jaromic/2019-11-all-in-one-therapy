@@ -13,7 +13,7 @@
     </form>
     </p>
     @if (count($patients)>0)
-        <table>
+        <table class="table">
             <tr>
                 @if( $orderBy == 'lastname')
                     <th>
