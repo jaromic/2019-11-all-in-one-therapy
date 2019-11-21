@@ -70,6 +70,8 @@
                 <label></label>
                 <input type="text" name="plz" value="{{$patient ? $patient->plz : old('plz')}}" placeholder="PLZ">
                 <input type="text" name="city" value="{{$patient ? $patient->city : old('city')}}" placeholder="Stadt">,
+                <br />
+                <label></label>
                 <input type="text" name="country" value="{{$patient ? $patient->country: old('country')}}" placeholder="Land">
             </p>
             <p>
