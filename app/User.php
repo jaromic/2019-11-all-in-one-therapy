@@ -52,4 +52,19 @@ class User extends Authenticatable
         $role = Role::where('name', $roleName)->first();
         $this->roles()->save($role);
     }
+
+    public function hasPermission(string $permissionName): bool {
+
+        $hasPermission = false;
+
+        foreach($this->roles as $role) {
+            if($role->hasPermission($permissionName)) {
+                $hasPermission=true;
+                break;
+            }
+        }
+
+        return $hasPermission;
+
+    }
 }
