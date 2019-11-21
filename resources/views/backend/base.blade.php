@@ -25,7 +25,7 @@
 </nav>
 <div class="content">
     <div class="title m-b-md">
-        @yield('title') &ndash; Backend &ndash; All-in-one Therapy
+        @yield('title') &ndash; Backend &ndash; AIOTs
     </div>
     @if(session()->has('message'))
         <div class="message">

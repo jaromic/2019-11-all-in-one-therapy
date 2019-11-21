@@ -87,7 +87,7 @@
 
         <h2>Dokumentationen</h2>
         @if(!empty($patient->documentations))
-            <table style="max-width: 80%">
+            <table class="table" style="max-width: 80%">
                 <tr>
                     <th>Datum</th>
                     <th>Autor</th>
