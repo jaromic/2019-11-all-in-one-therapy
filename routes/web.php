@@ -39,6 +39,16 @@ Route::group(["middleware" => ['auth']], function () {
     Route::post('/patient/', 'PatientController@store')->name('newpatient');
     Route::post('/patient/{id}', 'PatientController@update')->name('patient');
     Route::post('/patient/{id}/delete', 'PatientController@destroy');
+
+    Route::get('/bills', function() {
+        session()->flash('message','Not implemented.');
+        return redirect('/backend');
+    })->name('bills');
+    Route::get('/slots', function() {
+        session()->flash('message','Not implemented.');
+        return redirect('/backend');
+    })->name('slots');
+
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 });

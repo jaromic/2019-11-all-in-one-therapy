@@ -1,4 +1,4 @@
-@extends('backend.base')
+@extends('base')
 
 @section('title')
     Meine Dokumentation
@@ -7,7 +7,7 @@
 @endsection
 @section ('main')
     @if(!empty($documentations))
-        <table style="width:85%">
+        <table class="table" style="width:85%">
             <tr>
                 <th>Datum</th>
                 <th>Patient</th>

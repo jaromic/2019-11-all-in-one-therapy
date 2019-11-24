@@ -1,4 +1,4 @@
-@extends('backend.base')
+@extends('base')
 
 @section('title')
     @if($patient)
@@ -6,6 +6,7 @@
     @else
         Neuer Patient
     @endif
+    &ndash;
 @endsection
 @section ('main')
     @if($patient)

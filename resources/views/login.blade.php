@@ -1,4 +1,4 @@
-@extends('backend.base')
+@extends('base')
 @section('title')
     Login
 @endsection

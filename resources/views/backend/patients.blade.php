@@ -1,7 +1,7 @@
-@extends('backend.base')
+@extends('backend')
 
 @section('title')
-    Patienten
+    Patienten &ndash;
 @endsection
 @section ('main')
     <p><a href="{{ route('newpatient') }}">Neuer Patient</a></p>

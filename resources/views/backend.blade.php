@@ -1,7 +1,10 @@
-@extends('backend.base')
+@extends('base')
 
 @section('title')
-    Home
+    @yield('title')Backend &ndash; AIOT
+@endsection
+@section('nav')
+    @parent
 @endsection
 @section ('main')
     MAIN
