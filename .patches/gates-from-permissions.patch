@@ -1,0 +1,53 @@
+diff --git a/app/Providers/AppServiceProvider.php b/app/Providers/AppServiceProvider.php
+index dadef5e..808710a 100644
+--- a/app/Providers/AppServiceProvider.php
++++ b/app/Providers/AppServiceProvider.php
+@@ -2,6 +2,9 @@
+ 
+ namespace App\Providers;
+ 
++use App\Permission;
++use App\User;
++use Illuminate\Support\Facades\Gate;
+ use Illuminate\Support\Facades\Schema;
+ use Illuminate\Support\ServiceProvider;
+ 
+@@ -25,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
+     public function boot()
+     {
+         Schema::defaultStringLength(191);
+-        //
++
++        foreach (Permission::all() as $permission) {
++            $permissionName = $permission->name;
++            Gate::define($permissionName, function (User $user) use ($permissionName) {
++                return $user->hasPermission($permissionName);
++            });
++        }
+     }
+ }
+diff --git a/resources/views/base.blade.php b/resources/views/base.blade.php
+index aa2205b..4789986 100644
+--- a/resources/views/base.blade.php
++++ b/resources/views/base.blade.php
+@@ -19,14 +19,20 @@
+     @auth
+         <nav class="top-right links navbar navbar-expand-lg navbar-light bg-light">
+             <ul class="navbar-nav flex-grow-1">
++                @can('admin-patient')
+                 <li class="nav-item"><a class="nav-link {{ request()->is('patients') ? "active" : "" }}"
+                                         href="{{ route('patients') }}">Patient</a></li>
+                 <li class="nav-item"><a class="nav-link {{ request()->is('bills') ? "active" : "" }}"
+                                         href="{{ route('bills') }}">Rechnung</a></li>
++                @endcan
++                @can('admin-calendar')
+                 <li class="nav-item"><a class="nav-link {{ request()->is('slots') ? "active" : "" }}"
+                                         href="{{ route('slots') }}">Termin</a></li>
++@endcan
++                        @can('admin-documentation')
+                 <li class="nav-item"><a class="nav-link {{ request()->is('documentations') ? "active" : "" }}"
+                                         href="{{ route('documentations') }}">Dokumentation</a></li>
++                            @endcan
+             </ul>
+             <ul class="navbar-nav">
+                 <li class="nav-item"><a class="nav-link {{ request()->is('') ? "active" : "" }}" href="{{ route('/') }}">Frontend</a>
